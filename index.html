@@ -1,96 +1,38 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.1">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paycheck</title>
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; display: flex; justify-content: center; height: 100vh; align-items: center; margin: 0; }
+        .card { width: 90%; max-width: 350px; border: 2px solid #fff; padding: 20px; box-sizing: border-box; }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 2px solid #fff; color: #fff; font-size: 20px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #fff; color: #000; border: none; font-weight: bold; margin-top: 10px; cursor: pointer; }
+        .res { margin-top: 20px; font-size: 18px; line-height: 1.6; }
+        .total { font-size: 24px; font-weight: bold; border-top: 1px solid #fff; margin-top: 10px; padding-top: 10px; }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Paycheck Calc&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #ffffff; color: #000000;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex; justify-content: center; padding: 20px;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; max-width: 350px;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #000000; padding: 25px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>h2 {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase; letter-spacing: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; padding: 12px; margin-top: 5px;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #000; font-size: 18px; outline: none; box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; padding: 12px; margin-top: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #000; color: #fff; border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold; text-transform: uppercase; cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>button#clearBtn {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #fff; color: #000; border: 2px solid #000; margin-top: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-box { margin-top: 30px; border-top: 2px solid #000; padding-top: 15px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-line { display: flex; justify-content: space-between; margin-bottom: 8px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.total { font-weight: 900; font-size: 1.4em; margin-top: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Paycheck&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;label style="font-weight:bold; text-transform:uppercase;"&gt;Hours Worked&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="number" id="hours" placeholder="0" oninput="calculate()"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="result-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="result-line"&gt;&lt;span&gt;Gross:&lt;/span&gt;&lt;span id="gross"&gt;$0.00&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="result-line"&gt;&lt;span&gt;Taxes (7.65%):&lt;/span&gt;&lt;span id="tax"&gt;-$0.00&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="result-line total"&gt;&lt;span&gt;Net:&lt;/span&gt;&lt;span id="net"&gt;$0.00&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button id="clearBtn" onclick="clearAll()"&gt;Clear&lt;/button&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function calculate() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const rate = 13.50;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const taxRate = 0.0765;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const hours = document.getElementById('hours').value;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (hours &lt; 0) return;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const gross = hours * rate;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const tax = gross * taxRate;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const net = gross - tax;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('gross').innerText = '$' + gross.toFixed(2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('tax').innerText = '-$' + tax.toFixed(2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('net').innerText = '$' + net.toFixed(2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function clearAll() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('hours').value = "";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>calculate();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('gross').innerText = '$0.00';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('tax').innerText = '-$'0.00';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('net').innerText = '$0.00';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <div class="card">
+        <h2 style="border-bottom:2px solid #fff; padding-bottom:10px; text-transform:uppercase;">Paycheck</h2>
+        <input type="number" id="h" placeholder="Enter Hours" oninput="calc()">
+        <div class="res">
+            Gross: <span id="g">$0.00</span><br>
+            Tax (7.65%): <span id="t">-$0.00</span>
+            <div class="total">Net: <span id="n">$0.00</span></div>
+        </div>
+        <button onclick="location.reload()">CLEAR</button>
+    </div>
+    <script>
+        function calc() {
+            let h = document.getElementById('h').value;
+            let g = h * 13.50;
+            let t = g * 0.0765;
+            document.getElementById('g').innerText = '$' + g.toFixed(2);
+            document.getElementById('t').innerText = '-$' + t.toFixed(2);
+            document.getElementById('n').innerText = '$' + (g - t).toFixed(2);
+        }
+    </script>
 </body>
 </html>
