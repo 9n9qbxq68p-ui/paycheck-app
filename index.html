@@ -6,31 +6,20 @@
     <title>Paycheck Tracker</title>
     <style>
         body { background: #000; color: #fff; font-family: sans-serif; padding: 20px; max-width: 400px; margin: 0 auto; }
-        
-        /* Header Grid */
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #fff; padding-bottom: 10px; margin-bottom: 20px; }
         h2 { margin: 0; text-transform: uppercase; }
         .days-box { text-align: right; }
         .days-num { font-size: 24px; font-weight: bold; display: block; }
         .days-label { font-size: 10px; text-transform: uppercase; color: #ccc; }
-
-        /* Input Section */
         input { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 2px solid #fff; color: #fff; font-size: 20px; box-sizing: border-box; }
-        
-        /* Results Section */
         .res { margin-top: 15px; font-size: 18px; line-height: 1.6; }
         .total { font-size: 24px; font-weight: bold; border-top: 1px solid #fff; margin-top: 10px; padding-top: 10px; }
-        
-        /* Buttons */
         button { width: 100%; padding: 15px; border: none; font-weight: bold; margin-top: 10px; cursor: pointer; text-transform: uppercase; font-size: 16px; }
         .btn-save { background: #fff; color: #000; }
         .btn-clear { background: #333; color: #fff; border: 1px solid #fff; }
         .btn-reset { background: #000; color: #888; border: 1px solid #333; margin-top: 30px; font-size: 12px; }
-
-        /* History List */
         #history-box { margin-top: 40px; border-top: 4px double #fff; padding-top: 20px; }
         .history-item { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding: 10px 0; font-size: 14px; }
-        .date { color: #888; }
     </style>
 </head>
 <body>
@@ -62,34 +51,30 @@
     </div>
 
 <script>
-    // --- SETTINGS ---
-    // If the days are wrong, change this date to the NEXT Friday your pay period ends.
-    // Format is YYYY-MM-DD
     const referenceDate = new Date('2026-01-02'); 
-    
-    // ----------------
 
-    // 1. Load History
+    // 1. AUTO-FILL CHECK (The new part!)
+    // This checks if the link has "?hours=25" at the end
+    const urlParams = new URLSearchParams(window.location.search);
+    const autoHours = urlParams.get('hours');
+    
+    if(autoHours) {
+        document.getElementById('h').value = autoHours;
+        // We wait a split second to make sure the math runs
+        setTimeout(calc, 100);
+    }
+
     let savedChecks = JSON.parse(localStorage.getItem('adamPayHistory')) || [];
     renderHistory();
     updateCountdown();
 
     function updateCountdown() {
         let today = new Date();
-        // Reset time to midnight to get accurate day difference
         today.setHours(0,0,0,0);
-        
         let target = new Date(referenceDate);
-        
-        // If the date has passed, add 14 days until we find the next future date
-        while (target < today) {
-            target.setDate(target.getDate() + 14);
-        }
-        
-        // Calculate difference in days
+        while (target < today) { target.setDate(target.getDate() + 14); }
         let diffTime = target - today;
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-        
         document.getElementById('daysLeft').innerText = diffDays;
     }
 
@@ -106,49 +91,31 @@
     function saveCheck() {
         let h = document.getElementById('h').value;
         if (!h) return alert("Enter hours first!");
-
         let net = calc();
         let date = new Date().toLocaleDateString();
-
         savedChecks.unshift({ date: date, hours: h, amount: net });
         localStorage.setItem('adamPayHistory', JSON.stringify(savedChecks));
-        
         renderHistory();
         clearInput();
+        // Clear the URL so refreshing doesn't add it again
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 
     function renderHistory() {
         let list = document.getElementById('list');
         list.innerHTML = "";
         let totalEarned = 0;
-
         savedChecks.forEach((check) => {
             totalEarned += parseFloat(check.amount);
-            list.innerHTML += `
-                <div class="history-item">
-                    <span class="date">${check.date} (${check.hours}hrs)</span>
-                    <b>$${check.amount}</b>
-                </div>`;
+            list.innerHTML += `<div class="history-item"><span class="date">${check.date} (${check.hours}hrs)</span><b>$${check.amount}</b></div>`;
         });
-        
         if(savedChecks.length > 0) {
             list.innerHTML = `<div style="padding-bottom:15px; font-size:18px;">TOTAL SAVED: <b>$${totalEarned.toFixed(2)}</b></div>` + list.innerHTML;
         }
     }
 
-    function clearInput() {
-        document.getElementById('h').value = "";
-        calc();
-    }
-
-    function wipeHistory() {
-        if(confirm("Delete all saved history?")) {
-            localStorage.removeItem('adamPayHistory');
-            savedChecks = [];
-            renderHistory();
-        }
-    }
+    function clearInput() { document.getElementById('h').value = ""; calc(); }
+    function wipeHistory() { if(confirm("Delete all?")) { localStorage.removeItem('adamPayHistory'); savedChecks = []; renderHistory(); } }
 </script>
-
 </body>
 </html>
